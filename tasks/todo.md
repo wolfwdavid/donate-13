@@ -21,5 +21,5 @@
 
 - [x] corrected/ folder with the deliverables as sent
 - [x] Live demo page published (artifact TS466GwxdbTvx6DuCVGYnZ, sample capability, quick tier)
-- [x] GitHub repo wolfwdavid/riverbend-donate-triage (private)
+- [x] GitHub repo wolfwdavid/donate-13 (private)
 - [ ] Live run on the demo page not yet exercised by a viewer click

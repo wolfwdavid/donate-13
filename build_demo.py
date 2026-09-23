@@ -8,7 +8,7 @@ import json, re, sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from run_eval import SIX, fill_prompt, HERE
 
-REPO_URL = sys.argv[1] if len(sys.argv) > 1 else "https://github.com/wolfwdavid/riverbend-donate-triage"
+REPO_URL = sys.argv[1] if len(sys.argv) > 1 else "https://github.com/wolfwdavid/donate-13"
 LABELS = {"kevin": "Kevin (22 pallets)", "sarah": "Sarah (drop-off)", "pastor_dan": "Pastor Dan (allocation)",
           "spam": "GrantStation (spam)", "jen": "Jen (NHS + food drive)", "ana": "Ana Lucía (ayuda)"}
 ORDER = ["kevin", "pastor_dan", "sarah", "jen", "ana", "spam"]

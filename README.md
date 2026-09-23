@@ -4,7 +4,12 @@ A rewritten Claude Project prompt for triaging a food bank's shared donation inb
 
 The previous prompt told the model what to promise ("bring it anytime", "we'll add it to your next delivery"). The replies it produced committed the organisation to allocations and drop-offs it could not honour. The new prompt turns the model into a sorting and drafting tool that may only state facts from a closed list, routes every email to a fixed owner, and writes holding replies that promise nothing.
 
-Live demo (runs the prompt on Claude's quick tier from the browser): https://claude.ai/artifact/TS466GwxdbTvx6DuCVGYnZ
+Live demo, two hosts:
+
+- GitHub Pages: https://wolfwdavid.github.io/donate-13/ (bring your own Anthropic API key to run live; recorded results show without one)
+- Claude artifact: https://claude.ai/artifact/TS466GwxdbTvx6DuCVGYnZ (runs on the viewer's own Claude account, invite-only)
+
+> Note: this repository is public until the owner is cued in to make it private. It contains only a fictional exercise; no real organisation, people, keys or addresses.
 
 ## Files
 

@@ -22,4 +22,6 @@
 - [x] corrected/ folder with the deliverables as sent
 - [x] Live demo page published (artifact TS466GwxdbTvx6DuCVGYnZ, sample capability, quick tier)
 - [x] GitHub repo wolfwdavid/donate-13 (private)
-- [ ] Live run on the demo page not yet exercised by a viewer click
+- [x] Second CLI run on 2026-09-23 reproduced 46/46 JSON, 46/46 category, 45/46 route (S11)
+- [ ] Direct API path on the Pages site untested; user chose to skip to avoid API billing
+- [x] Repo renamed to donate-13 (user asked for donate@13$, invalid on GitHub), made public, Pages live

@@ -1,22 +1,7 @@
 id,expected_category,got_category,expected_urgent,got_urgent,expected_route_to,got_route_to,match,draft
-ana,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola Ana Lucía,
-
-Gracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria al 555-0100, de lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos para usted y sus tres niños.
-
-Riverbend Food Alliance — Donations Team"
-jen,food_drive,food_drive,no,no,priya,priya,yes,"Hi Jen,
-
-Thank you for thinking of us for both a food drive in early May and a volunteer shift for your 18 NHS students before May 15. The right person on our team will follow up with you about the most-needed items list and on shift options.
-
-Riverbend Food Alliance — Donations Team"
 kevin,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi Kevin,
 
-Thank you for offering the 22 pallets of sparkling water and for the heads-up on the Wednesday deadline. We have your questions about dock space and whether we accept short-dated beverage, and the right person on our team will follow up with you directly.
-
-Riverbend Food Alliance — Donations Team"
-pastor_dan,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hi Pastor Dan,
-
-Thank you for letting us know about the jump to 112 families. We have your request for an extra half-pallet of produce and 4 cases of protein on this week's delivery, and the right person on our team will follow up with you about what is possible.
+Thank you for offering the 22 pallets of sparkling water and for the heads-up on the Wednesday deadline. We have your questions about dock space and short-dated beverage, and the right person on our team will follow up with you directly.
 
 Riverbend Food Alliance — Donations Team"
 sarah,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hi Sarah,
@@ -24,45 +9,50 @@ sarah,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,ye
 Thank you for thinking of us. Canned goods and pasta can be dropped off at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.
 
 Riverbend Food Alliance — Donations Team"
+pastor_dan,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hi Pastor Dan,
+
+Thank you for letting us know about the jump to 112 families last week and that you ran out by 10:30am. We have your request for an extra half-pallet of produce and 4 more cases of protein on this week's delivery, and the right person on our team will follow up with you about what is possible.
+
+Riverbend Food Alliance — Donations Team"
 spam,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
-S01,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi,
+jen,food_drive,food_drive,no,no,priya,priya,yes,"Hi Jen,
 
-Thank you for offering the 40 cases of canned vegetables and for letting us know about the Monday liquidation deadline. We have your offer, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S02,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi,
-
-Thank you for offering 15 pallets of cereal. We have your question about Monday delivery and the May 15 deadline, and the right person on our team will follow up with you.
+Thank you for thinking of us for both a food drive in early May and a volunteer shift for your 18 NHS students before May 15. The right person on our team will follow up with you on the most-needed items list and on shift options.
 
 Riverbend Food Alliance — Donations Team"
-S03,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi,
+ana,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola Ana Lucía,
 
-Thank you for offering 6 pallets of bread and letting us know about the Monday delivery window and Wednesday deadline. The right person on our team will follow up with you directly to confirm.
-
-Riverbend Food Alliance — Donations Team"
-S04,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hello,
-
-Thank you for offering the 8 pallets of cereal and for the Friday noon deadline. We have your question about Monday delivery, and the right person on our team will follow up with you directly.
+Gracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria: 555-0100, de lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos para usted y sus tres niños.
 
 Riverbend Food Alliance — Donations Team"
-S05,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hello,
+S13,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
 
-Thank you for offering the 8 cases of rice and for letting us know about the Saturday deadline. We have your question about whether we can take the product, and the right person on our team will follow up with you directly.
-
-Riverbend Food Alliance — Donations Team"
-S06,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
-
-Thank you for offering to donate. We accept unopened shelf-stable food including rice, pasta, canned goods, and sealed beverages, but we cannot accept toiletries. You can drop off the rice at 123 Example Street, Riverbend, Monday to Friday, 9am to 4pm—no appointment needed.
+Thank you for thinking of us. You can drop off your produce at 123 Example Street, Riverbend during our drop-off hours, Monday to Friday, 9am to 4pm. No appointment is needed.
 
 Riverbend Food Alliance — Donations Team"
-S07,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hi,
+S27,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hello,
 
-Thank you for thinking of us. We accept unopened, shelf-stable food within its best-by date, including canned goods, pasta, rice, cereal, and sealed beverages like sparkling water, but we do not accept clothing, toiletries, or household goods. You can drop off donations at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.
+Thank you for your interest in volunteering with us. We received your question about Friday shift availability, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S14,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
+
+Thank you for letting us know about the missing yogurt from your last delivery. We have your question about what happened, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S16,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hello,
+
+Thank you for reaching out. We have your request for 12 extra cases of bread on next week's delivery to help with shortages at your Tuesday distribution. The right person on our team will follow up with you about what is possible.
+
+Riverbend Food Alliance — Donations Team"
+S25,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hi,
+
+Thank you for your interest in volunteering. We have your question about Friday shifts, and the right person on our team will follow up with you about opportunities.
 
 Riverbend Food Alliance — Donations Team"
 S08,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
 
-Thank you for thinking of us. Canned vegetables are exactly what we need — they can be dropped off at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. We're unable to accept toiletries.
+Thank you for wanting to donate. We accept unopened shelf-stable food within its best-by date, including canned goods, pasta, rice, cereal, and sealed beverages. Canned vegetables are great! However, we're unable to accept toiletries, clothing, or household goods. You can drop off your canned vegetables at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.
 
 Riverbend Food Alliance — Donations Team"
 S09,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
@@ -70,104 +60,9 @@ S09,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,
 Thank you for thinking of us. Fresh produce can be dropped off at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.
 
 Riverbend Food Alliance — Donations Team"
-S10,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
-
-Thank you for thinking of us. We're not able to accept refrigerated items like yogurt from individual donors. We do accept unopened shelf-stable food like canned goods, pasta, rice, cereal, and sealed beverages, which can be dropped off at 123 Example Street, Riverbend, Monday to Friday, 9am to 4pm.
-
-Riverbend Food Alliance — Donations Team"
-S11,individual_food_donation,individual_food_donation,no,no,auto_ok,priya,no,"Hi,
-
-Thank you for thinking of us. We have your question about what items we're able to accept, including the sparkling water and baby formula, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S12,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
-
-Thank you for thinking of us. Cereal can be dropped off at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.
-
-Riverbend Food Alliance — Donations Team"
-S13,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
-
-Thank you for donating produce. You can drop it off at 123 Example Street, Riverbend, Monday to Friday, 9am to 4pm. No appointment is needed.
-
-Riverbend Food Alliance — Donations Team"
-S14,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
-
-Thank you for letting us know about the missing yogurt from last delivery. We have your question about what happened, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S15,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
-
-Thank you for letting us know that rice was missing from your last delivery. We have this report, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S16,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hello,
-
-Thank you for letting us know about the shortage at your Tuesday distribution. We have your request for 12 additional cases of bread on next week's truck, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S17,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hello,
-
-Thank you for reaching out. We have your request for 3 extra cases of bread on next week's truck to help with your Monday distribution. The right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S18,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
-
-Thank you for letting us know about the missing sparkling water from the last delivery. We have your question about what happened, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S19,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
-
-Thank you for letting us know about the missing yogurt from your last delivery. The right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S20,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hello,
-
-Thank you for reaching out. Yes, we can help your family. The way to get started is to call our food assistance intake line: 555-0100, Monday to Friday 9am to 5pm. They will walk you through the next steps.
-
-Riverbend Food Alliance — Donations Team"
-S21,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola,
-
-Gracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria: 555-0100, de lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos para obtener comida para su familia.
-
-Riverbend Food Alliance — Donations Team"
-S22,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hello,
-
-Thank you for reaching out. Yes, we can help support your family with food. Please call our food assistance intake line at 555-0100, Monday to Friday, 9am to 5pm, and they'll help you get started.
-
-Riverbend Food Alliance — Donations Team"
-S23,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola,
-
-Gracias por escribirnos. Sí, podemos ayudar a su familia. Para empezar, llame a nuestra línea de asistencia alimentaria al 555-0100, de lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos.
-
-Riverbend Food Alliance — Donations Team"
 S24,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hello,
 
-Thank you for thinking of us. We have your request to schedule a group volunteer shift for 12 students before May 15. The right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S25,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hello,
-
-Thank you for your interest in volunteering with us. We have your question about Friday shifts, and the right person on our team will follow up with you directly.
-
-Riverbend Food Alliance — Donations Team"
-S26,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hello,
-
-Thank you for your interest in volunteering with us. We have your question about Thursday shift availability, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S27,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hello,
-
-Thank you for your interest in volunteering with us. We have your question about Friday shifts, and the right person on our team will follow up with you.
-
-Riverbend Food Alliance — Donations Team"
-S28,volunteer_inquiry,volunteer_inquiry,yes,yes,priya,priya,yes,"Hi,
-
-Thank you for reaching out. We have your request to schedule a group volunteer shift for 4 students who need to complete their service hours by Wednesday. The right person on our team will follow up with you about available shifts.
-
-Riverbend Food Alliance — Donations Team"
-S29,volunteer_inquiry,volunteer_inquiry,yes,yes,priya,priya,yes,"Hello,
-
-Thank you for reaching out. We have your request to schedule a volunteer shift for 4 students before the end of the week, and the right person on our team will follow up with you about available times.
+Thank you for reaching out. We have your request to schedule a group shift for 12 students who need service hours by May 15. The right person on our team will follow up with you about this.
 
 Riverbend Food Alliance — Donations Team"
 S30,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
@@ -175,33 +70,138 @@ S30,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
 Thank you for thinking of us for a food drive in July. We have your questions about bins, flyers, and our most-needed items, and the right person on our team will follow up with you.
 
 Riverbend Food Alliance — Donations Team"
-S31,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
+S29,volunteer_inquiry,volunteer_inquiry,yes,yes,priya,priya,yes,"Hello,
 
-Thank you for organizing a food drive in May. We have your questions about bins, flyers, and the items we need most, and the right person on our team will follow up with you.
+Thank you for reaching out. We have your request to schedule a group shift for 4 students who need service hours by end of week. The right person on our team will follow up with you about availability.
 
 Riverbend Food Alliance — Donations Team"
-S32,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
+S28,volunteer_inquiry,volunteer_inquiry,yes,yes,priya,priya,yes,"Hello,
 
-Thank you for thinking of us for a food drive in May. We have your questions about bins, flyers, and our most-needed items, and the right person on our team will follow up with you.
+Thank you for reaching out. We have your request to schedule a group shift for 4 students with service hours needed by Wednesday. The right person on our team will follow up with you about availability.
+
+Riverbend Food Alliance — Donations Team"
+S17,partner_agency_request,partner_agency_request,yes,yes,marcus,marcus,yes,"Hello,
+
+Thank you for letting us know that your Monday distribution has been running short. We have your request for an extra 3 cases of bread on next week's delivery, and the right person on our team will follow up with you about what is possible.
+
+Riverbend Food Alliance — Donations Team"
+S23,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola,
+
+Gracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria: 555-0100, lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos para usted y su familia.
+
+Riverbend Food Alliance — Donations Team"
+S21,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hola,
+
+Gracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria: 555-0100, de lunes a viernes, de 9am a 5pm. Ahí le explicarán los pasos para usted y su familia.
+
+Riverbend Food Alliance — Donations Team"
+S10,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
+
+Thank you for thinking of us as you prepare your move. We're unable to accept refrigerated items like yogurt from individual donors. We do accept unopened shelf-stable food such as canned goods, pasta, rice, cereal, and sealed beverages.
+
+Riverbend Food Alliance — Donations Team"
+S12,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
+
+Thank you for thinking of us. Cereal can be dropped off at 123 Example Street, Riverbend during our drop-off hours: Monday to Friday, 9am to 4pm. No appointment is needed.
+
+Riverbend Food Alliance — Donations Team"
+S22,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hello,
+
+Thank you for reaching out. We can help your family. The way to get started is to call our food assistance intake line at 555-0100, Monday to Friday 9am to 5pm. They will explain the next steps.
+
+Riverbend Food Alliance — Donations Team"
+S18,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
+
+Thank you for letting us know about the missing sparkling water from your last delivery. We have your request to check what happened, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S05,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hello,
+
+Thank you for the offer of 8 cases of rice and for the heads-up on the Saturday liquidation deadline. We have your question about whether we can take the surplus, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S19,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hello,
+
+Thank you for letting us know that yogurt was missing from your last delivery. The right person on our team will follow up about this with you.
+
+Riverbend Food Alliance — Donations Team"
+S01,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hello,
+
+Thank you for offering the overstock of approximately 40 cases of canned vegetables and for the heads-up on the Monday liquidation deadline. We have your offer, and the right person on our team will follow up with you directly.
 
 Riverbend Food Alliance — Donations Team"
 S33,media_or_general_inquiry,media_or_general_inquiry,yes,yes,diane,diane,yes,"Hi,
 
-Thank you for reaching out about covering the summer hunger story. We have your request to speak with someone this week, and the right person on our team will follow up with you.
+Thank you for reaching out about an interview for your story on summer hunger. We have your request and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S02,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hello,
+
+Thank you for offering the 15 pallets of cereal from your DC with a best-by date 3 weeks out and asking about Monday delivery with confirmation needed by May 15. The right person on our team will follow up with you directly.
+
+Riverbend Food Alliance — Donations Team"
+S20,food_assistance_seeker,food_assistance_seeker,no,no,intake_line,intake_line,yes,"Hello,
+
+Thank you for reaching out. Yes, we can help. To get started, please call our food assistance intake line at 555-0100, Monday to Friday 9am to 5pm.
+
+Riverbend Food Alliance — Donations Team"
+S11,individual_food_donation,individual_food_donation,no,no,auto_ok,priya,no,"Hello,
+
+Thank you for thinking of us. We have your questions about the sparkling water and baby formula, and the right person on our team will follow up with you about what we can accept.
+
+Riverbend Food Alliance — Donations Team"
+S32,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
+
+Thank you for wanting to run a food drive in May with your office. We have your questions about bins, flyers, and the items we need most, and the right person on our team will follow up with you about what we can provide.
+
+Riverbend Food Alliance — Donations Team"
+S06,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
+
+Thank you for wanting to donate. We can accept unopened shelf-stable food within its best-by date, including rice, canned goods, pasta, cereal, and sealed beverages, but we're unable to accept toiletries. You can drop off your rice at 123 Example Street, Riverbend, Monday to Friday, 9am to 4pm, no appointment needed.
+
+Riverbend Food Alliance — Donations Team"
+S15,partner_agency_request,partner_agency_request,no,no,marcus,marcus,yes,"Hi,
+
+Thank you for letting us know that rice was missing from your last delivery. We have your note, and the right person on our team will follow up with you to look into what happened.
 
 Riverbend Food Alliance — Donations Team"
 S34,media_or_general_inquiry,media_or_general_inquiry,yes,yes,diane,diane,yes,"Hello,
 
-Thank you for reaching out with your interview request. We have your question about speaking with someone regarding rising grocery prices this week, and the right person on our team will follow up with you.
+Thank you for reaching out. We have your request for an interview this week about rising grocery prices. The right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S03,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi,
+
+Thank you for offering 6 pallets of bread for Monday delivery with a Wednesday confirmation deadline. The right person on our team will follow up with you directly.
 
 Riverbend Food Alliance — Donations Team"
 S35,media_or_general_inquiry,media_or_general_inquiry,yes,yes,diane,diane,yes,"Hello,
 
-Thank you for reaching out. We have your request to speak with someone this week for your story on food insecurity. The right person on our team will follow up with you.
+Thank you for reaching out. We have your request for an interview about food insecurity this week, and the right person on our team will follow up with you.
 
 Riverbend Food Alliance — Donations Team"
-S36,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
+S04,corporate_food_donation,corporate_food_donation,yes,yes,marcus,marcus,yes,"Hi,
+
+Thank you for offering 8 pallets of cereal with a Monday delivery window and Friday noon confirmation deadline. The right person on our team will follow up with you directly.
+
+Riverbend Food Alliance — Donations Team"
+S40,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
+S31,food_drive,food_drive,no,no,priya,priya,yes,"Hello,
+
+Thank you for wanting to run a food drive in May. We have your questions about bins, flyers, and our most-needed items, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S07,individual_food_donation,individual_food_donation,no,no,auto_ok,auto_ok,yes,"Hello,
+
+Thank you for wanting to donate. We accept unopened sparkling water and other sealed beverages within their best-by dates. We don't accept clothing. You can drop off accepted items at 123 Example Street, Riverbend, Monday to Friday, 9am to 4pm.
+
+Riverbend Food Alliance — Donations Team"
 S37,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
 S38,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
 S39,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
-S40,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,
+S26,volunteer_inquiry,volunteer_inquiry,no,no,priya,priya,yes,"Hi,
+
+Thank you for your interest in volunteering with us. We have your question about Thursday shift availability, and the right person on our team will follow up with you.
+
+Riverbend Food Alliance — Donations Team"
+S36,spam_no_reply,spam_no_reply,no,no,no_reply,no_reply,yes,

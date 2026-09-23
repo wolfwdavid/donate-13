@@ -1,0 +1,221 @@
+<title>Riverbend Triage Demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F4F1; --surface:#FFFFFF; --ink:#1E2622; --muted:#5F6B64; --line:#D6DCD7;
+  --accent:#2E6B3E; --accent-ink:#FFFFFF; --accent-soft:#E3EFE6;
+  --urgent:#A83A2E; --urgent-soft:#F6E4E1; --calm:#5F6B64; --calm-soft:#E8EBE9;
+  --mono-bg:#F7F8F6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#151917; --surface:#1E2421; --ink:#E6EAE6; --muted:#9AA69F; --line:#2F3733;
+    --accent:#7CC48A; --accent-ink:#0F1A12; --accent-soft:#213328;
+    --urgent:#F08A7C; --urgent-soft:#3A2320; --calm:#9AA69F; --calm-soft:#273029;
+    --mono-bg:#181D1A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#151917; --surface:#1E2421; --ink:#E6EAE6; --muted:#9AA69F; --line:#2F3733;
+  --accent:#7CC48A; --accent-ink:#0F1A12; --accent-soft:#213328;
+  --urgent:#F08A7C; --urgent-soft:#3A2320; --calm:#9AA69F; --calm-soft:#273029;
+  --mono-bg:#181D1A;
+}
+body{background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:6px}
+header h1{font-size:22px;font-weight:600;margin:0;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:68ch}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:13px;font-weight:600;margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.chip:hover,.chip:focus-visible{border-color:var(--accent);outline:none}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+input[type=text],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;box-sizing:border-box}
+textarea{min-height:190px;resize:vertical;line-height:1.45}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:600;font-size:14px;border-radius:6px;padding:9px 16px;border:1px solid transparent;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:disabled{opacity:.55;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.status{font-size:13px;color:var(--muted);min-height:1.4em}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:480px){.fields{grid-template-columns:1fr}}
+.field{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.field .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field .v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;font-weight:500;overflow-wrap:anywhere}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600}
+.pill.urgent{background:var(--urgent-soft);color:var(--urgent)}
+.pill.calm{background:var(--calm-soft);color:var(--calm)}
+.draft{white-space:pre-wrap;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:12px;font-size:14px;line-height:1.5;min-height:80px}
+.draft.empty{color:var(--muted);font-style:italic}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-size:13px;color:var(--muted)}
+pre{margin:8px 0 0;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow-x:auto;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.45}
+.note{font-size:13px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:0}
+.checks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.checks span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--line);margin-right:6px;vertical-align:middle}
+.checks span.ok::before{background:var(--accent)}
+.checks span.bad::before{background:var(--urgent)}
+footer{font-size:13px;color:var(--muted)}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.btn,.chip{transition:background .12s,border-color .12s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Riverbend Food Alliance · donate@ inbox</div>
+    <h1>Triage prompt, live on Haiku</h1>
+    <p>Paste any email that could land in the donate@ inbox, or pick one of the six replies that went wrong last week. The rewritten prompt runs on Claude's fastest model tier and returns the four fields the volunteer needs, with a holding reply that promises nothing.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-labelledby="in-h">
+      <h2 id="in-h">Email</h2>
+      <div class="eyebrow">Last week's six</div>
+      <div class="chips" id="chips"></div>
+      <label>From <input type="text" id="from" autocomplete="off"></label>
+      <label>Subject <input type="text" id="subject" autocomplete="off"></label>
+      <label>Body <textarea id="body"></textarea></label>
+      <div class="row">
+        <button class="btn primary" id="run" type="button">Run triage</button>
+        <button class="btn ghost" id="stop" type="button" hidden>Stop</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="note">Runs on the viewer's own Claude account. The first run asks for permission. The facts block in this demo holds placeholder values marked TEST VALUE, so addresses and hours in drafts are not real.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="out-h">
+      <h2 id="out-h">Result <span class="eyebrow" id="source">recorded from the test run</span></h2>
+      <div class="fields">
+        <div class="field"><span class="k">category</span><span class="v" id="r-cat">—</span></div>
+        <div class="field"><span class="k">urgent</span><span class="v" id="r-urg">—</span></div>
+        <div class="field"><span class="k">route_to</span><span class="v" id="r-route">—</span></div>
+      </div>
+      <div class="eyebrow">draft</div>
+      <div class="draft" id="r-draft">—</div>
+      <div class="checks" id="checks"></div>
+      <details><summary>Raw JSON</summary><pre id="r-raw">—</pre></details>
+      <details><summary>What the old prompt produced for this email</summary><pre id="r-old">—</pre></details>
+    </section>
+  </div>
+
+  <footer>Prompt, evaluation note, 40-email golden set and test harness: <a id="repo-link" href="__REPO_URL__" target="_blank" rel="noopener">GitHub repository</a>. Test run: 46 of 46 valid JSON, 46 of 46 category, 45 of 46 route. The one miss is the safety rule sending an uncovered item to a human.</footer>
+</div>
+
+<script type="text/plain" id="triage-prompt">__PROMPT__</script>
+<script type="application/json" id="examples">__EXAMPLES__</script>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var PROMPT = $("triage-prompt").textContent;
+  var EX = JSON.parse($("examples").textContent);
+  var PROMISE = /\b(we'll|we will|anytime|add (it )?to|attached|attaching|forwarded|forwarding|right away|we'd love to have|absolutely|within (the next|a few|an hour|24))\b/i;
+  var sample = null, ctl = null;
+
+  function chk(ok, label){ return '<span class="' + (ok ? "ok" : "bad") + '">' + label + '</span>'; }
+
+  function render(obj, raw, source){
+    $("source").textContent = source;
+    $("r-cat").textContent = obj.category || "—";
+    var u = obj.urgent === true;
+    $("r-urg").innerHTML = '<span class="pill ' + (u ? "urgent" : "calm") + '">' + (u ? "true" : "false") + '</span>';
+    $("r-route").textContent = obj.route_to || "—";
+    var d = obj.draft || "";
+    $("r-draft").textContent = d || "(empty: nothing goes out)";
+    $("r-draft").classList.toggle("empty", !d);
+    $("r-raw").textContent = raw;
+    var keys = Object.keys(obj).join(",") === "category,urgent,route_to,draft" && typeof obj.urgent === "boolean";
+    var md = /(\*\*|^#|^- |^\* |^Subject:)/m.test(d);
+    var promise = PROMISE.test(d);
+    var spamOk = obj.category !== "spam_no_reply" || d === "";
+    $("checks").innerHTML =
+      chk(keys, "four keys, boolean urgent") +
+      chk(!promise, promise ? "promise word found" : "no promise words") +
+      chk(!md, md ? "markdown in draft" : "plain text draft") +
+      chk(spamOk, "spam draft empty");
+  }
+
+  function clearPressed(){
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) chips[i].setAttribute("aria-pressed", "false");
+  }
+
+  function load(ex){
+    $("from").value = ex.from; $("subject").value = ex.subject; $("body").value = ex.body;
+    $("r-old").textContent = ex.old || "—";
+    clearPressed();
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) if (chips[i].getAttribute("data-id") === ex.id) chips[i].setAttribute("aria-pressed", "true");
+    if (ex.recorded) render(ex.recorded, JSON.stringify(ex.recorded, null, 1), "recorded from the test run");
+  }
+
+  EX.forEach(function(ex){
+    var b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = ex.label; b.setAttribute("data-id", ex.id);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function(){ load(ex); });
+    $("chips").appendChild(b);
+  });
+  load(EX[0]);
+  ["from","subject","body"].forEach(function(id){
+    $(id).addEventListener("input", function(){ clearPressed(); $("r-old").textContent = "—"; });
+  });
+
+  var COPY = {
+    not_granted: "This page was not allowed to use Claude. Nothing was sent.",
+    sampling_disabled: "Claude is not available on this account.",
+    rate_limited: "Too many runs in a row. Wait a moment and try again.",
+    session_expired: "Your Claude session expired. Sign in again and retry.",
+    invalid_json: "The model did not return clean JSON. Try once more; if it repeats, the prompt needs tightening.",
+    refused: "Claude declined this input.",
+    empty_completion: "The model returned nothing. Try a shorter email.",
+    prompt_too_large: "That email is too long for one run. Trim it and try again."
+  };
+
+  $("stop").addEventListener("click", function(){ if (ctl) ctl.abort(); });
+
+  $("run").addEventListener("click", function(){
+    if (!sample) { $("status").textContent = "Live runs are not available in this view."; return; }
+    if (!$("body").value.trim()) { $("status").textContent = "Paste an email body first."; return; }
+    var email = "From: " + $("from").value.trim() + "\nSubject: " + $("subject").value.trim() + "\n\n" + $("body").value.trim();
+    var input = PROMPT + "\n\n---\n\nHere is the email to triage. Reply with only the JSON object.\n\n" + email;
+    ctl = new AbortController();
+    $("run").disabled = true; $("stop").hidden = false; $("status").textContent = "Thinking…";
+    $("source").textContent = "live";
+    sample.json(input, {
+      modelTier: "quick", cache: false, signal: ctl.signal,
+      onText: function(){ $("status").textContent = "Writing…"; }
+    }).then(function(obj){
+      render(obj, JSON.stringify(obj, null, 1), "live from the quick tier");
+      $("status").textContent = "Done.";
+    }).catch(function(e){
+      var code = e && e.code;
+      if (code === "cancelled") { $("status").textContent = "Stopped."; return; }
+      $("status").textContent = COPY[code] || "Something went wrong on the way to Claude. Try again.";
+      if (e && e.text) $("r-raw").textContent = e.text;
+      if (code === "not_granted" || code === "sampling_disabled" || code === "not_declared") $("run").hidden = true;
+    }).then(function(){
+      $("run").disabled = false; $("stop").hidden = true; ctl = null;
+    });
+  });
+
+  (function init(){
+    var p = (window.claude && window.claude.use) ? window.claude.use("sample") : Promise.resolve(null);
+    Promise.resolve(p).then(function(s){ sample = s; }, function(){ sample = null; }).then(function(){
+      if (!sample) {
+        $("run").hidden = true;
+        $("status").textContent = "Live runs need the Claude viewer. Results shown are recorded from the test run.";
+      }
+    });
+  })();
+})();
+</script>

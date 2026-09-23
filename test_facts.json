@@ -1,0 +1,11 @@
+{
+  "_comment": "Placeholder values for the Section 1 facts block, used only for testing. Every value is fictional. Replace with real facts inside triage_prompt.md before the prompt goes live.",
+  "WAREHOUSE DROP-OFF ADDRESS": "123 Example Street, Riverbend (TEST VALUE)",
+  "DROP-OFF HOURS FOR INDIVIDUAL DONORS": "Monday to Friday, 9am to 4pm (TEST VALUE)",
+  "ITEMS WE ACCEPT FROM INDIVIDUALS": "unopened shelf-stable food within its best-by date, including canned goods, pasta, rice, cereal, and sealed beverages",
+  "ITEMS WE DO NOT ACCEPT FROM INDIVIDUALS": "opened or expired food, clothing, toiletries, household goods",
+  "REFRIGERATED / FROZEN / FRESH ITEMS FROM INDIVIDUALS": "fresh produce is accepted at drop-off; refrigerated or frozen items are not accepted from individuals",
+  "FOOD ASSISTANCE INTAKE LINE": "555-0100, Monday to Friday 9am to 5pm (TEST VALUE)",
+  "VOLUNTEER SIGN-UP": "a team member will send the sign-up link",
+  "FOOD DRIVE INFO / MOST-NEEDED ITEMS LIST": "a team member will send it"
+}

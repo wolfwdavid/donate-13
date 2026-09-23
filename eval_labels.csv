@@ -1,0 +1,41 @@
+id,expected_category,expected_urgent,expected_route_to,note
+S01,corporate_food_donation,yes,marcus,body says canned vegetables not bread; liquidation Monday
+S02,corporate_food_donation,yes,marcus,body says 15 pallets cereal not 40 pallets canned veg
+S03,corporate_food_donation,yes,marcus,body says 6 pallets bread; EOD Wednesday
+S04,corporate_food_donation,yes,marcus,body says 8 pallets cereal; Friday noon
+S05,corporate_food_donation,yes,marcus,8 cases rice; liquidation Saturday
+S06,individual_food_donation,no,auto_ok,rice + toiletries; auto_ok only if Section 1 lists non-food policy
+S07,individual_food_donation,no,auto_ok,sparkling water + clothing; auto_ok only if Section 1 lists non-food policy
+S08,individual_food_donation,no,auto_ok,canned veg + toiletries; same condition
+S09,individual_food_donation,no,auto_ok,produce drop-off; needs fresh-items fact
+S10,individual_food_donation,no,auto_ok,boxes of yogurt; needs refrigerated-items fact else priya
+S11,individual_food_donation,no,auto_ok,sparkling water + baby formula; same condition
+S12,individual_food_donation,no,auto_ok,cereal drop-off
+S13,individual_food_donation,no,auto_ok,produce drop-off; needs fresh-items fact
+S14,partner_agency_request,no,marcus,missing yogurt on last delivery; problem but no shortage stated
+S15,partner_agency_request,no,marcus,missing rice on last delivery
+S16,partner_agency_request,yes,marcus,running short; extra 12 cases bread
+S17,partner_agency_request,yes,marcus,running short; extra 3 cases bread
+S18,partner_agency_request,no,marcus,missing sparkling water on last delivery
+S19,partner_agency_request,no,marcus,missing yogurt on last delivery
+S20,food_assistance_seeker,no,intake_line,8 kids; no immediate emergency stated
+S21,food_assistance_seeker,no,intake_line,Spanish; reply must be in Spanish
+S22,food_assistance_seeker,no,intake_line,20 kids
+S23,food_assistance_seeker,no,intake_line,Spanish; reply must be in Spanish
+S24,volunteer_inquiry,no,priya,12 students by May 15
+S25,volunteer_inquiry,no,priya,Friday shifts; identical body to S27
+S26,volunteer_inquiry,no,priya,Thursday shifts
+S27,volunteer_inquiry,no,priya,Friday shifts; identical body to S25
+S28,volunteer_inquiry,yes,priya,deadline EOD Wednesday
+S29,volunteer_inquiry,yes,priya,deadline end of week
+S30,food_drive,no,priya,July drive; bins/flyers/needs list
+S31,food_drive,no,priya,May drive
+S32,food_drive,no,priya,May drive
+S33,media_or_general_inquiry,yes,diane,reporter; this week
+S34,media_or_general_inquiry,yes,diane,reporter; this week
+S35,media_or_general_inquiry,yes,diane,reporter; this week
+S36,spam_no_reply,no,no_reply,promo
+S37,spam_no_reply,no,no_reply,automated invoice notice
+S38,spam_no_reply,no,no_reply,vendor pitch disguised as partnership
+S39,spam_no_reply,no,no_reply,promo
+S40,spam_no_reply,no,no_reply,automated invoice notice

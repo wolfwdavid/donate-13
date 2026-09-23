@@ -1,0 +1,347 @@
+<title>Riverbend Triage Demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F4F1; --surface:#FFFFFF; --ink:#1E2622; --muted:#5F6B64; --line:#D6DCD7;
+  --accent:#2E6B3E; --accent-ink:#FFFFFF; --accent-soft:#E3EFE6;
+  --urgent:#A83A2E; --urgent-soft:#F6E4E1; --calm:#5F6B64; --calm-soft:#E8EBE9;
+  --mono-bg:#F7F8F6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#151917; --surface:#1E2421; --ink:#E6EAE6; --muted:#9AA69F; --line:#2F3733;
+    --accent:#7CC48A; --accent-ink:#0F1A12; --accent-soft:#213328;
+    --urgent:#F08A7C; --urgent-soft:#3A2320; --calm:#9AA69F; --calm-soft:#273029;
+    --mono-bg:#181D1A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#151917; --surface:#1E2421; --ink:#E6EAE6; --muted:#9AA69F; --line:#2F3733;
+  --accent:#7CC48A; --accent-ink:#0F1A12; --accent-soft:#213328;
+  --urgent:#F08A7C; --urgent-soft:#3A2320; --calm:#9AA69F; --calm-soft:#273029;
+  --mono-bg:#181D1A;
+}
+body{background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:6px}
+header h1{font-size:22px;font-weight:600;margin:0;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:68ch}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:13px;font-weight:600;margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.chip:hover,.chip:focus-visible{border-color:var(--accent);outline:none}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+input[type=text],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;box-sizing:border-box}
+textarea{min-height:190px;resize:vertical;line-height:1.45}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:600;font-size:14px;border-radius:6px;padding:9px 16px;border:1px solid transparent;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:disabled{opacity:.55;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.status{font-size:13px;color:var(--muted);min-height:1.4em}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:480px){.fields{grid-template-columns:1fr}}
+.field{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.field .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field .v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;font-weight:500;overflow-wrap:anywhere}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600}
+.pill.urgent{background:var(--urgent-soft);color:var(--urgent)}
+.pill.calm{background:var(--calm-soft);color:var(--calm)}
+.draft{white-space:pre-wrap;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:12px;font-size:14px;line-height:1.5;min-height:80px}
+.draft.empty{color:var(--muted);font-style:italic}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-size:13px;color:var(--muted)}
+pre{margin:8px 0 0;background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow-x:auto;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.45}
+.note{font-size:13px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:0}
+.checks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.checks span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--line);margin-right:6px;vertical-align:middle}
+.checks span.ok::before{background:var(--accent)}
+.checks span.bad::before{background:var(--urgent)}
+footer{font-size:13px;color:var(--muted)}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.btn,.chip{transition:background .12s,border-color .12s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Riverbend Food Alliance · donate@ inbox</div>
+    <h1>Triage prompt, live on Haiku</h1>
+    <p>Paste any email that could land in the donate@ inbox, or pick one of the six replies that went wrong last week. The rewritten prompt runs on Claude's fastest model tier and returns the four fields the volunteer needs, with a holding reply that promises nothing.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-labelledby="in-h">
+      <h2 id="in-h">Email</h2>
+      <div class="eyebrow">Last week's six</div>
+      <div class="chips" id="chips"></div>
+      <label>From <input type="text" id="from" autocomplete="off"></label>
+      <label>Subject <input type="text" id="subject" autocomplete="off"></label>
+      <label>Body <textarea id="body"></textarea></label>
+      <div class="row">
+        <button class="btn primary" id="run" type="button">Run triage</button>
+        <button class="btn ghost" id="stop" type="button" hidden>Stop</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="note">Runs on the viewer's own Claude account. The first run asks for permission. The facts block in this demo holds placeholder values marked TEST VALUE, so addresses and hours in drafts are not real.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="out-h">
+      <h2 id="out-h">Result <span class="eyebrow" id="source">recorded from the test run</span></h2>
+      <div class="fields">
+        <div class="field"><span class="k">category</span><span class="v" id="r-cat">—</span></div>
+        <div class="field"><span class="k">urgent</span><span class="v" id="r-urg">—</span></div>
+        <div class="field"><span class="k">route_to</span><span class="v" id="r-route">—</span></div>
+      </div>
+      <div class="eyebrow">draft</div>
+      <div class="draft" id="r-draft">—</div>
+      <div class="checks" id="checks"></div>
+      <details><summary>Raw JSON</summary><pre id="r-raw">—</pre></details>
+      <details><summary>What the old prompt produced for this email</summary><pre id="r-old">—</pre></details>
+    </section>
+  </div>
+
+  <footer>Prompt, evaluation note, 40-email golden set and test harness: <a id="repo-link" href="https://github.com/wolfwdavid/riverbend-donate-triage" target="_blank" rel="noopener">GitHub repository</a>. Test run: 46 of 46 valid JSON, 46 of 46 category, 45 of 46 route. The one miss is the safety rule sending an uncovered item to a human.</footer>
+</div>
+
+<script type="text/plain" id="triage-prompt"># Riverbend Food Alliance — donate@ triage (Claude Project system instructions)
+
+You triage emails sent to the donate@ inbox of Riverbend Food Alliance, a nonprofit food bank. For each email you receive, you classify it, decide who must see it, and write a reply draft that a volunteer will paste into Gmail. You are a sorting and drafting tool. You are not a staff member, you have not forwarded anything, and you cannot make decisions for the organization.
+
+## 1. Facts you are allowed to state in a draft
+
+Use ONLY the facts below. If a fact you need is missing or blank, do not guess. Write "a member of our team will confirm that with you" instead. A missing fact never changes the category and never changes route_to, with one exception: individual_food_donation goes to priya instead of auto_ok. A food_assistance_seeker still goes to intake_line even if the intake line number below is blank.
+
+- WAREHOUSE DROP-OFF ADDRESS: 123 Example Street, Riverbend (TEST VALUE)
+- DROP-OFF HOURS FOR INDIVIDUAL DONORS: Monday to Friday, 9am to 4pm (TEST VALUE)
+- ITEMS WE ACCEPT FROM INDIVIDUALS: unopened shelf-stable food within its best-by date, including canned goods, pasta, rice, cereal, and sealed beverages
+- ITEMS WE DO NOT ACCEPT FROM INDIVIDUALS: opened or expired food, clothing, toiletries, household goods
+- REFRIGERATED / FROZEN / FRESH ITEMS FROM INDIVIDUALS: fresh produce is accepted at drop-off; refrigerated or frozen items are not accepted from individuals
+- FOOD ASSISTANCE INTAKE LINE: 555-0100, Monday to Friday 9am to 5pm (TEST VALUE) — this is how households get food. Do not describe any other process.
+- VOLUNTEER SIGN-UP: a team member will send the sign-up link
+- FOOD DRIVE INFO / MOST-NEEDED ITEMS LIST: a team member will send it
+- SIGNATURE FOR EVERY DRAFT: "Riverbend Food Alliance — Donations Team"
+
+## 2. Categories (use exactly one of these eight strings)
+
+- corporate_food_donation — a business, farm, distributor, grocer, or caterer offering food. Includes surplus, overstock, short-dated product, agricultural drops, recurring or changing corporate donations, and questions about dock space or delivery logistics. Any quantity in pallets or cases is corporate.
+- individual_food_donation — a private person offering or asking about dropping off food.
+- partner_agency_request — a pantry, shelter, church program, school program, or other agency we deliver to: allocation requests, shortages, delivery problems, missing items, schedule questions.
+- food_assistance_seeker — a person or family asking how to get food for themselves.
+- volunteer_inquiry — a person or group wanting to volunteer or asking about shifts or service hours.
+- food_drive — someone wanting to run a food drive, or asking for bins, flyers, or a needed-items list for one.
+- media_or_general_inquiry — press, interview requests, students researching, general questions that fit nothing above, complaints, or anything mentioning the board, a lawyer, or a public statement.
+- spam_no_reply — marketing, promotions, vendor sales pitches, newsletters, automated notices (invoices, receipts, alerts, "your account"), grant-matching services, and anything with no real request from a real person.
+
+Rules for choosing:
+- Judge by the BODY of the email. Subject lines can be wrong or generic. If the subject and body disagree about product or quantity, the body wins.
+- A friendly subject like "Partnership opportunity" is still spam if the body is a sales pitch.
+- If one email contains several requests, pick ONE category using this priority order, highest first: corporate_food_donation, partner_agency_request, food_assistance_seeker, food_drive, volunteer_inquiry, media_or_general_inquiry, individual_food_donation, spam_no_reply. The draft must still address every request in the email.
+
+## 3. urgent (true or false)
+
+Set urgent to true only when one of these is present:
+- A corporate food offer with a stated deadline, a "reply by" date, a best-by date, or product that will be dumped, liquidated, or lost. Treat every corporate food OFFER as urgent unless it is clearly an open-ended question with no product on the table.
+- A partner agency asking for more food, reporting running out, or reporting a shortage for an upcoming distribution. A report about a PAST delivery (missing item, wrong item, "can someone check") is NOT urgent unless they also say they are short for an upcoming distribution.
+- Any email with a hard deadline within the next 3 business days ("by Wednesday", "by end of week", "this week").
+- A person who says they have no food today or tonight, or describes an immediate safety concern.
+- A media request with a deadline, or any email that mentions the board, a lawyer, a complaint, or a public statement.
+
+Everything else is false. spam_no_reply is always false. A food assistance seeker who does not describe an immediate emergency is false — they are routed to intake_line, which is already the fastest path.
+
+## 4. route_to (use exactly one of these strings)
+
+| category | route_to |
+|---|---|
+| corporate_food_donation | marcus |
+| partner_agency_request | marcus |
+| food_assistance_seeker | intake_line |
+| volunteer_inquiry | priya |
+| food_drive | priya |
+| media_or_general_inquiry | diane |
+| individual_food_donation | auto_ok (see condition below) |
+| spam_no_reply | no_reply |
+
+- auto_ok means the draft goes out without a human reading it. Use it ONLY for individual_food_donation where every question in the email is fully answered from Section 1. If you had to defer any question because a fact was missing, route to priya instead.
+- intake_line is always the route for food_assistance_seeker. Never send a food assistance seeker to marcus, diane, or priya.
+- For food_assistance_seeker when the intake line in Section 1 is blank: the draft says a member of our team will contact them, and route_to is still intake_line.
+- If an email mentions the board, a lawyer, a complaint about us, or a journalist, route to diane regardless of category.
+- Routing to a person means that person must see the email before any reply is sent. Your draft is a holding reply for them to review.
+
+## 5. Draft rules
+
+The draft is the body text of a reply, ready to paste into Gmail.
+
+- Plain text only. No markdown, no asterisks, no headings, no bullet symbols, no subject line. Use blank lines between paragraphs.
+- Reply in the language the sender wrote in. Spanish email, Spanish reply.
+- Use the sender's first name if it is in the email. Otherwise start with "Hello,".
+- Keep it short: 2 to 5 sentences plus the signature.
+- For spam_no_reply the draft is an empty string: "".
+- For emails routed to marcus, diane, or priya: thank them, restate what they asked for in one sentence so they know it was read, say that the right person on our team will follow up, and stop. Do not say when. Do not say who.
+- For food_assistance_seeker: say warmly that we can help, give the intake line from Section 1 as the way to get started, and nothing else about how the process works.
+
+NEVER do any of the following in a draft:
+- Promise or imply any allocation, extra food, pickup, delivery, dock space, acceptance of a product, or a volunteer shift. Not "we'll add it to your delivery", not "we'd love to have your students", not "bring it anytime", not "we absolutely want to make sure you're stocked".
+- State a response time ("within a few hours", "by tomorrow", "right away").
+- Say you have forwarded, attached, scheduled, or done anything. You have done nothing.
+- Invent an address, hours, phone number, policy, list, form, ID requirement, or attachment that is not in Section 1.
+- Write a summary, analysis, or note to the team. That belongs nowhere in the output.
+
+## 6. Output format
+
+Output exactly one JSON object inside a ```json code block and nothing else. No prose before or after. Four keys, in this order, no extra keys:
+
+```json
+{"category": "one of the eight category strings", "urgent": true, "route_to": "one of the seven route strings", "draft": "reply body as a single JSON string, newlines written as \\n"}
+```
+
+urgent is a JSON boolean (true or false), not a string. draft is always present, even when it is "".
+
+## 7. Examples
+
+In these examples, a bracketed name like [WAREHOUSE DROP-OFF ADDRESS] stands for the value in Section 1. In your own output write the actual value from Section 1, never the bracketed name. If that value is still blank, apply the missing-fact rule from Section 1.
+
+Email: "We have 22 pallets of flavored sparkling water, best-by 6 weeks out. Can deliver Thursday AM if you can take it, otherwise it's getting dumped Wednesday night. Confirm dock space and whether you accept short-dated beverage? Need a yes/no by EOD Wednesday. — Kevin, Midstate Beverage"
+```json
+{"category": "corporate_food_donation", "urgent": true, "route_to": "marcus", "draft": "Hi Kevin,\n\nThank you for offering the 22 pallets of sparkling water and for the heads-up on the Wednesday deadline. We have your questions about dock space and short-dated beverage, and the right person on our team will follow up with you directly.\n\nRiverbend Food Alliance — Donations Team"}
+```
+
+Email: "Marcus — our Thursday distribution served 112 families, up from 70. We ran out by 10:30am. Can we get an extra half-pallet of produce and 4 more cases of protein on this week's delivery? — Pastor Dan"
+```json
+{"category": "partner_agency_request", "urgent": true, "route_to": "marcus", "draft": "Hi Pastor Dan,\n\nThank you for letting us know about the jump to 112 families. We have your request for an extra half-pallet of produce and 4 cases of protein on this week's delivery, and the right person on our team will follow up with you about what is possible.\n\nRiverbend Food Alliance — Donations Team"}
+```
+
+Email: From noreply@grantstation.com, "47 New Grants Match Your Profile This Week!" (marketing body)
+```json
+{"category": "spam_no_reply", "urgent": false, "route_to": "no_reply", "draft": ""}
+```
+
+Email: "Hola, una amiga me dijo que ustedes ayudan con comida. Tengo tres niños y este mes está difícil. ¿Cómo funciona? ¿Tengo que llenar algo? Gracias." — Ana Lucía
+```json
+{"category": "food_assistance_seeker", "urgent": false, "route_to": "intake_line", "draft": "Hola Ana Lucía,\n\nGracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria: [FOOD ASSISTANCE INTAKE LINE]. Ahí le explicarán los pasos para usted y sus tres niños.\n\nRiverbend Food Alliance — Donations Team"}
+```
+
+Email: "I'm the NHS advisor at Lincoln HS. (1) 18 students need volunteer hours before May 15, can we set up a warehouse shift? (2) we want to run a food drive the first week of May — is there a list of items you actually need?" — Jen
+```json
+{"category": "food_drive", "urgent": false, "route_to": "priya", "draft": "Hi Jen,\n\nThank you for thinking of us for both a food drive in early May and a volunteer shift for your 18 NHS students before May 15. The right person on our team will follow up with you on the most-needed items list and on shift options.\n\nRiverbend Food Alliance — Donations Team"}
+```
+
+Email: "hi, I have some canned goods and pasta I'd like to donate, where can I drop them off? thanks!" — Sarah
+```json
+{"category": "individual_food_donation", "urgent": false, "route_to": "auto_ok", "draft": "Hi Sarah,\n\nThank you for thinking of us. Canned goods and pasta can be dropped off at [WAREHOUSE DROP-OFF ADDRESS] during [DROP-OFF HOURS FOR INDIVIDUAL DONORS]. No appointment is needed.\n\nRiverbend Food Alliance — Donations Team"}
+```
+</script>
+<script type="application/json" id="examples">[{"id": "kevin", "label": "Kevin (22 pallets)", "from": "Kevin Walsh <kwalsh@midstatebev.com>", "subject": "Short-dated product — 22 pallets sparkling water, need answer by Wed", "body": "Hi — we have 22 pallets of flavored sparkling water (best-by 6 weeks out) at our Linden DC. We can deliver to you Thursday AM if you can take it, otherwise it's getting dumped Wednesday night. Can you confirm dock space + whether you accept short-dated beverage? Need a yes/no by EOD Wednesday. — Kevin, Midstate Beverage", "old": "Category: corporate_food_donation\nUrgent: Yes\nDraft reply:\nSubject: RE: Short-dated product — 22 pallets sparkling water\n\nHi Kevin,\n\nThank you so much for thinking of Riverbend Food Alliance! We're grateful for your generosity in offering these pallets.\n\nI need to connect you with our warehouse manager right away to confirm dock space and our short-dated beverage policy, since this requires a quick turnaround. I'm forwarding your email to them immediately so they can get you a yes/no answer before your Wednesday EOD deadline.\n\nYou should hear back from our team within the next few hours.\n\nThanks again for helping us fight hunger in our community!\n\nBest,\n[Your name]\nRiverbend Food Alliance\"*\n--", "recorded": {"category": "corporate_food_donation", "urgent": true, "route_to": "marcus", "draft": "Hi Kevin,\n\nThank you for offering the 22 pallets of sparkling water and for the heads-up on the Wednesday deadline. We have your questions about dock space and whether we accept short-dated beverage, and the right person on our team will follow up with you directly.\n\nRiverbend Food Alliance — Donations Team"}}, {"id": "pastor_dan", "label": "Pastor Dan (allocation)", "from": "Pastor Daniel Reyes <office@crossroadsmission.org>", "subject": "URGENT — Crossroads pantry allocation", "body": "Marcus — our Thursday distribution served 112 families last week, up from ~70. We ran out by 10:30am. Can we get an extra half-pallet of produce and 4 more cases of protein on this week's delivery? I know it's late to ask. — Pastor Dan", "old": "Category: partner_agency_request\nUrgent: Yes\nDraft reply:\nSubject: Re: URGENT — Crossroads pantry allocation\n\nHi Pastor Dan,\n\nThank you so much for reaching out, and congratulations on serving 112 families last week — that's wonderful growth and shows the real need in your community!\n\nWe absolutely want to make sure Crossroads is fully stocked. I'm forwarding your request for the extra half-pallet of produce and 4 cases of protein to Marcus right away so he can confirm what we can add to this week's delivery.\n\nWe'll get back to you as soon as possible to confirm the details.\n\nThank you for the incredible work you're doing!\n\nBest,  \n[Your name]  \nRiverbend Food Alliance\"*\n--", "recorded": {"category": "partner_agency_request", "urgent": true, "route_to": "marcus", "draft": "Hi Pastor Dan,\n\nThank you for letting us know about the jump to 112 families. We have your request for an extra half-pallet of produce and 4 cases of protein on this week's delivery, and the right person on our team will follow up with you about what is possible.\n\nRiverbend Food Alliance — Donations Team"}}, {"id": "sarah", "label": "Sarah (drop-off)", "from": "Sarah M <sarahm1987@gmail.com>", "subject": "cleaning out pantry", "body": "hi, I have some canned goods and pasta I'd like to donate, where can I drop them off? thanks!", "old": "Category: individual_food_donation\nUrgent: No\nDraft reply:\nSubject: Re: cleaning out pantry\n\nHi Sarah,\n\nThank you so much for thinking of us and wanting to donate! We're so grateful for your generosity—donations like yours make a real difference in our community.\n\nYou're welcome to drop off your canned goods and pasta at our warehouse anytime during our regular hours: **8am-6pm, every day**. Just bring them by whenever is convenient for you!\n\nIf you have any questions about what we accept or need directions, feel free to reach out.\n\nThanks again for supporting Riverbend Food Alliance!\n\nWarm regards,\n[Your name]\nRiverbend Food Alliance\"*\n--", "recorded": {"category": "individual_food_donation", "urgent": false, "route_to": "auto_ok", "draft": "Hi Sarah,\n\nThank you for thinking of us. Canned goods and pasta can be dropped off at 123 Example Street, Riverbend during Monday to Friday, 9am to 4pm. No appointment is needed.\n\nRiverbend Food Alliance — Donations Team"}}, {"id": "jen", "label": "Jen (NHS + food drive)", "from": "Jen Park <jpark@lincolnhs.edu>", "subject": "NHS volunteer hours + food drive question", "body": "Hi! I'm the National Honor Society advisor at Lincoln HS. Two things — (1) we have 18 students who need volunteer hours before May 15, can we set up a warehouse shift? (2) we also want to run a food drive the first week of May — is there a list of items you actually need? Last year we got a lot of stuff you apparently couldn't use.", "old": "Category: volunteer_inquiry\nUrgent: No\nDraft reply:\nSubject: Re: NHS volunteer hours + food drive question\n\nHi Jen,\n\nThank you so much for reaching out — we're thrilled that Lincoln HS NHS wants to support Riverbend! Your students' help makes a real difference.\n\n**For the volunteer shift:** We'd love to have your 18 students! Our warehouse is open 8am-6pm daily. To coordinate a group shift that works with your timeline, could you let us know your preferred dates/times before May 15? I'll connect you with our volunteer coordinator to finalize details.\n\n**For the food drive:** Great question about what we need! We definitely appreciate you asking — it helps us get items that actually fill gaps in our pantry. I'm attaching our current needs list, which includes things like canned proteins, whole grains, low-sodium items, and shelf-stable milk. This should help your drive be as impactful as possible.\n\nWe're so grateful for your partnership. Please let me know if you have any other questions!\n\nBest,\n[Name]\nRiverbend Food Alliance\"*\n--", "recorded": {"category": "food_drive", "urgent": false, "route_to": "priya", "draft": "Hi Jen,\n\nThank you for thinking of us for both a food drive in early May and a volunteer shift for your 18 NHS students before May 15. The right person on our team will follow up with you about the most-needed items list and on shift options.\n\nRiverbend Food Alliance — Donations Team"}}, {"id": "ana", "label": "Ana Lucía (ayuda)", "from": "Ana Lucía Torres <atorres.community@gmail.com>", "subject": "ayuda con comida", "body": "Hola, una amiga me dijo que ustedes ayudan con comida. Tengo tres niños y este mes está difícil. ¿Cómo funciona? ¿Tengo que llenar algo? Gracias.", "old": "Category: food_assistance_seeker\nUrgent: Yes\nDraft reply:\nHola Ana Lucía,\n\n¡Gracias por comunicarte con nosotros! Nos alegra mucho que tu amiga te haya hablado de Riverbend Food Alliance.\n\nSí, podemos ayudarte a ti y a tus tres niños. El proceso es muy simple:\n\n1. **Visita nuestro almacén** en [warehouse address] \n2. **Horario:** Abierto todos los días de 8am a 6pm\n3. **Trae un documento de identificación** para verificar tu información\n4. **Elige los alimentos** que necesites para tu familia\n\nNo hay costo alguno. Queremos asegurarnos de que tu familia tenga acceso a comida nutritiva.\n\nSi tienes preguntas o necesitas ayuda adicional, por favor no dudes en llamarnos o responder este correo.\n\n¡Estamos aquí para apoyarte!\n\nCon cariño,\nRiverbend Food Alliance", "recorded": {"category": "food_assistance_seeker", "urgent": false, "route_to": "intake_line", "draft": "Hola Ana Lucía,\n\nGracias por escribirnos. Sí, podemos ayudar. La manera de empezar es llamar a nuestra línea de asistencia alimentaria al 555-0100, de lunes a viernes de 9am a 5pm. Ahí le explicarán los pasos para usted y sus tres niños.\n\nRiverbend Food Alliance — Donations Team"}}, {"id": "spam", "label": "GrantStation (spam)", "from": "noreply@grantstation.com", "subject": "🎯 Kevin, 47 New Grants Match Your Profile This Week!", "body": "[marketing email body: GrantStation weekly digest — 47 new grants match your profile, click to view, upgrade to Premium for full access, unsubscribe link]", "old": "Category: spam_no_reply\nUrgent: No\nDraft reply:\n# Email Triage Summary\n\n**Category:** Marketing/Automated Email\n\n**Urgency:** Low - No action required\n\n**Summary:** This is an automated marketing email from GrantStation (a grant database service) notifying about matching grant opportunities. It's not a genuine inquiry or donation-related communication.\n--\n\n## Recommended Response:\n\n**No response needed.** This is an automated marketing email, not a genuine inquiry from a donor, volunteer, or community member.\n\n**Note for team:** If Riverbend is considering subscribing to GrantStation or similar grant research services, this could be forwarded to the appropriate staff member (likely development/fundraising). Otherwise, it can be archived or filtered.\"*\n--", "recorded": {"category": "spam_no_reply", "urgent": false, "route_to": "no_reply", "draft": ""}}]</script>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var PROMPT = $("triage-prompt").textContent;
+  var EX = JSON.parse($("examples").textContent);
+  var PROMISE = /\b(we'll|we will|anytime|add (it )?to|attached|attaching|forwarded|forwarding|right away|we'd love to have|absolutely|within (the next|a few|an hour|24))\b/i;
+  var sample = null, ctl = null;
+
+  function chk(ok, label){ return '<span class="' + (ok ? "ok" : "bad") + '">' + label + '</span>'; }
+
+  function render(obj, raw, source){
+    $("source").textContent = source;
+    $("r-cat").textContent = obj.category || "—";
+    var u = obj.urgent === true;
+    $("r-urg").innerHTML = '<span class="pill ' + (u ? "urgent" : "calm") + '">' + (u ? "true" : "false") + '</span>';
+    $("r-route").textContent = obj.route_to || "—";
+    var d = obj.draft || "";
+    $("r-draft").textContent = d || "(empty: nothing goes out)";
+    $("r-draft").classList.toggle("empty", !d);
+    $("r-raw").textContent = raw;
+    var keys = Object.keys(obj).join(",") === "category,urgent,route_to,draft" && typeof obj.urgent === "boolean";
+    var md = /(\*\*|^#|^- |^\* |^Subject:)/m.test(d);
+    var promise = PROMISE.test(d);
+    var spamOk = obj.category !== "spam_no_reply" || d === "";
+    $("checks").innerHTML =
+      chk(keys, "four keys, boolean urgent") +
+      chk(!promise, promise ? "promise word found" : "no promise words") +
+      chk(!md, md ? "markdown in draft" : "plain text draft") +
+      chk(spamOk, "spam draft empty");
+  }
+
+  function clearPressed(){
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) chips[i].setAttribute("aria-pressed", "false");
+  }
+
+  function load(ex){
+    $("from").value = ex.from; $("subject").value = ex.subject; $("body").value = ex.body;
+    $("r-old").textContent = ex.old || "—";
+    clearPressed();
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) if (chips[i].getAttribute("data-id") === ex.id) chips[i].setAttribute("aria-pressed", "true");
+    if (ex.recorded) render(ex.recorded, JSON.stringify(ex.recorded, null, 1), "recorded from the test run");
+  }
+
+  EX.forEach(function(ex){
+    var b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = ex.label; b.setAttribute("data-id", ex.id);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function(){ load(ex); });
+    $("chips").appendChild(b);
+  });
+  load(EX[0]);
+  ["from","subject","body"].forEach(function(id){
+    $(id).addEventListener("input", function(){ clearPressed(); $("r-old").textContent = "—"; });
+  });
+
+  var COPY = {
+    not_granted: "This page was not allowed to use Claude. Nothing was sent.",
+    sampling_disabled: "Claude is not available on this account.",
+    rate_limited: "Too many runs in a row. Wait a moment and try again.",
+    session_expired: "Your Claude session expired. Sign in again and retry.",
+    invalid_json: "The model did not return clean JSON. Try once more; if it repeats, the prompt needs tightening.",
+    refused: "Claude declined this input.",
+    empty_completion: "The model returned nothing. Try a shorter email.",
+    prompt_too_large: "That email is too long for one run. Trim it and try again."
+  };
+
+  $("stop").addEventListener("click", function(){ if (ctl) ctl.abort(); });
+
+  $("run").addEventListener("click", function(){
+    if (!sample) { $("status").textContent = "Live runs are not available in this view."; return; }
+    if (!$("body").value.trim()) { $("status").textContent = "Paste an email body first."; return; }
+    var email = "From: " + $("from").value.trim() + "\nSubject: " + $("subject").value.trim() + "\n\n" + $("body").value.trim();
+    var input = PROMPT + "\n\n---\n\nHere is the email to triage. Reply with only the JSON object.\n\n" + email;
+    ctl = new AbortController();
+    $("run").disabled = true; $("stop").hidden = false; $("status").textContent = "Thinking…";
+    $("source").textContent = "live";
+    sample.json(input, {
+      modelTier: "quick", cache: false, signal: ctl.signal,
+      onText: function(){ $("status").textContent = "Writing…"; }
+    }).then(function(obj){
+      render(obj, JSON.stringify(obj, null, 1), "live from the quick tier");
+      $("status").textContent = "Done.";
+    }).catch(function(e){
+      var code = e && e.code;
+      if (code === "cancelled") { $("status").textContent = "Stopped."; return; }
+      $("status").textContent = COPY[code] || "Something went wrong on the way to Claude. Try again.";
+      if (e && e.text) $("r-raw").textContent = e.text;
+      if (code === "not_granted" || code === "sampling_disabled" || code === "not_declared") $("run").hidden = true;
+    }).then(function(){
+      $("run").disabled = false; $("stop").hidden = true; ctl = null;
+    });
+  });
+
+  (function init(){
+    var p = (window.claude && window.claude.use) ? window.claude.use("sample") : Promise.resolve(null);
+    Promise.resolve(p).then(function(s){ sample = s; }, function(){ sample = null; }).then(function(){
+      if (!sample) {
+        $("run").hidden = true;
+        $("status").textContent = "Live runs need the Claude viewer. Results shown are recorded from the test run.";
+      }
+    });
+  })();
+})();
+</script>

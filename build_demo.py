@@ -44,6 +44,20 @@ assert "</script" not in prompt
 html = html.replace("__PROMPT__", prompt)
 html = html.replace("__EXAMPLES__", json.dumps(examples, ensure_ascii=False).replace("</", "<\\/"))
 html = html.replace("__REPO_URL__", REPO_URL)
-out = HERE / "demo" / "index.html"
+out = HERE / "demo" / "index.html"          # body only: the Artifact tool adds the document skeleton
 out.write_text(html, encoding="utf-8")
-print(f"wrote {out} ({out.stat().st_size} bytes); recorded results for {sorted(recorded)}")
+
+# GitHub Pages copy: standalone document with its own skeleton; <title> and the font <link> move into <head>
+title = re.search(r"<title>.*?</title>", html).group(0)
+link = re.search(r'<link rel="stylesheet"[^>]*>', html).group(0)
+body_html = html.replace(title, "", 1).replace(link, "", 1)
+pages = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+         + title + "\n" + link + "\n"
+         '<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>\n'
+         "</head>\n<body>\n" + body_html + "\n</body>\n</html>\n")
+docs = HERE / "docs"; docs.mkdir(exist_ok=True)
+(docs / "index.html").write_text(pages, encoding="utf-8")
+(docs / ".nojekyll").write_text("", encoding="utf-8")
+print(f"wrote {out} ({out.stat().st_size} bytes) and docs/index.html ({(docs / 'index.html').stat().st_size} bytes); "
+      f"recorded results for {sorted(recorded)}")

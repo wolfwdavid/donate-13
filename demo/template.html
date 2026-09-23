@@ -38,7 +38,7 @@ header p{margin:0;color:var(--muted);max-width:68ch}
 .chip:hover,.chip:focus-visible{border-color:var(--accent);outline:none}
 .chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
 label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
-input[type=text],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;box-sizing:border-box}
+input[type=text],input[type=password],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--mono-bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;box-sizing:border-box}
 textarea{min-height:190px;resize:vertical;line-height:1.45}
 input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -90,7 +90,12 @@ footer a{color:var(--accent)}
         <button class="btn ghost" id="stop" type="button" hidden>Stop</button>
         <span class="status" id="status"></span>
       </div>
-      <p class="note">Runs on the viewer's own Claude account. The first run asks for permission. The facts block in this demo holds placeholder values marked TEST VALUE, so addresses and hours in drafts are not real.</p>
+      <div id="keybox" hidden>
+        <label>Anthropic API key <input type="password" id="apikey" autocomplete="off" placeholder="sk-ant-…"></label>
+        <p class="note">This page is hosted outside the Claude viewer, so live runs call the Anthropic API directly from your browser with your own key. The key is kept in this browser only and sent only to api.anthropic.com. Leave it blank to just read the recorded results.</p>
+      </div>
+      <p class="note" id="viewer-note">Runs on the viewer's own Claude account. The first run asks for permission.</p>
+      <p class="note">The facts block in this demo holds placeholder values marked TEST VALUE, so addresses and hours in drafts are not real.</p>
     </section>
 
     <section class="panel" aria-labelledby="out-h">
@@ -183,19 +188,57 @@ footer a{color:var(--accent)}
 
   $("stop").addEventListener("click", function(){ if (ctl) ctl.abort(); });
 
+  var IN_VIEWER = !!(window.claude && window.claude.use);
+  var API_MODEL = "claude-haiku-4-5-20251001";
+
+  function parseFenced(text){
+    var m = /```json\s*([\s\S]*?)\s*```/.exec(text);
+    var body = m ? m[1] : text;
+    if (!m) { var a = body.indexOf("{"), b = body.lastIndexOf("}"); if (a >= 0 && b > a) body = body.slice(a, b + 1); }
+    return JSON.parse(body);
+  }
+
+  function runViaSample(input){
+    return sample.json(input, {
+      modelTier: "quick", cache: false, signal: ctl.signal,
+      onText: function(){ $("status").textContent = "Writing…"; }
+    }).then(function(obj){ return { obj: obj, source: "live from the quick tier" }; });
+  }
+
+  function runViaApi(email){
+    var key = $("apikey").value.trim();
+    if (!key) return Promise.reject({ code: "no_key" });
+    try { localStorage.setItem("rfa_api_key", key); } catch (_) {}
+    return fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST", signal: ctl.signal,
+      headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01",
+                 "anthropic-dangerous-direct-browser-access": "true" },
+      body: JSON.stringify({ model: API_MODEL, max_tokens: 800, system: PROMPT,
+                             messages: [{ role: "user", content: email }] })
+    }).then(function(res){
+      return res.json().then(function(j){
+        if (!res.ok) throw { code: res.status === 401 ? "bad_key" : "api_error", message: (j.error && j.error.message) || res.statusText };
+        var text = (j.content || []).filter(function(b){ return b.type === "text"; }).map(function(b){ return b.text; }).join("");
+        try { return { obj: parseFenced(text), source: "live from " + API_MODEL }; }
+        catch (_) { throw { code: "invalid_json", text: text }; }
+      });
+    }).catch(function(e){ if (e && e.name === "AbortError") throw { code: "cancelled" }; throw e; });
+  }
+
+  COPY.no_key = "Enter an Anthropic API key to run live, or read the recorded results.";
+  COPY.bad_key = "The API rejected that key. Check it and try again.";
+  COPY.api_error = "The API returned an error. Try again in a moment.";
+
   $("run").addEventListener("click", function(){
-    if (!sample) { $("status").textContent = "Live runs are not available in this view."; return; }
     if (!$("body").value.trim()) { $("status").textContent = "Paste an email body first."; return; }
     var email = "From: " + $("from").value.trim() + "\nSubject: " + $("subject").value.trim() + "\n\n" + $("body").value.trim();
     var input = PROMPT + "\n\n---\n\nHere is the email to triage. Reply with only the JSON object.\n\n" + email;
     ctl = new AbortController();
     $("run").disabled = true; $("stop").hidden = false; $("status").textContent = "Thinking…";
     $("source").textContent = "live";
-    sample.json(input, {
-      modelTier: "quick", cache: false, signal: ctl.signal,
-      onText: function(){ $("status").textContent = "Writing…"; }
-    }).then(function(obj){
-      render(obj, JSON.stringify(obj, null, 1), "live from the quick tier");
+    var p = sample ? runViaSample(input) : (IN_VIEWER ? Promise.reject({ code: "not_granted" }) : runViaApi(email));
+    p.then(function(r){
+      render(r.obj, JSON.stringify(r.obj, null, 1), r.source);
       $("status").textContent = "Done.";
     }).catch(function(e){
       var code = e && e.code;
@@ -209,11 +252,16 @@ footer a{color:var(--accent)}
   });
 
   (function init(){
-    var p = (window.claude && window.claude.use) ? window.claude.use("sample") : Promise.resolve(null);
-    Promise.resolve(p).then(function(s){ sample = s; }, function(){ sample = null; }).then(function(){
+    if (!IN_VIEWER) {
+      $("keybox").hidden = false; $("viewer-note").hidden = true;
+      try { var k = localStorage.getItem("rfa_api_key"); if (k) $("apikey").value = k; } catch (_) {}
+      $("status").textContent = "Results shown are recorded from the test run. Add a key to run live.";
+      return;
+    }
+    Promise.resolve(window.claude.use("sample")).then(function(s){ sample = s; }, function(){ sample = null; }).then(function(){
       if (!sample) {
         $("run").hidden = true;
-        $("status").textContent = "Live runs need the Claude viewer. Results shown are recorded from the test run.";
+        $("status").textContent = "Live runs are not available in this view. Results shown are recorded from the test run.";
       }
     });
   })();

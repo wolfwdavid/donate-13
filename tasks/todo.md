@@ -16,3 +16,10 @@
 - Verification: ran all 46 emails through Haiku 4.5 via the Claude CLI (native exe + --system-prompt-file) with placeholder facts filled in. 46/46 valid JSON, 46/46 category, 46/46 urgent, 45/46 route (the miss is the safe-side downgrade from auto_ok to priya on an item the facts did not cover). Zero promise words, zero markdown, spam drafts empty. Results in eval_results.csv.
 - Open decision for Marcus: press is routed to diane; the old prompt sent it to marcus. One-word edit in Section 4.
 - Before pasting: fill the [FILL IN] lines in Section 1. Until then every individual drop-off reply routes to priya instead of going out automatically, which is safe but slower.
+
+## Follow-up (2026-09-23)
+
+- [x] corrected/ folder with the deliverables as sent
+- [x] Live demo page published (artifact TS466GwxdbTvx6DuCVGYnZ, sample capability, quick tier)
+- [x] GitHub repo wolfwdavid/riverbend-donate-triage (private)
+- [ ] Live run on the demo page not yet exercised by a viewer click
